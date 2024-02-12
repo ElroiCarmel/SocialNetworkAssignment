@@ -120,7 +120,7 @@ class TextPost(Post):
         self.__content = content
     def __str__(self):
         return (f"{self.get_owner().get_name()} published a post:\n"
-                    f"{self.__content}\n")
+                    f"\"{self.__content}\"\n")
 class ImagePost(Post):
     def __init__(self, owner: User, image_path):
         super().__init__(owner)
