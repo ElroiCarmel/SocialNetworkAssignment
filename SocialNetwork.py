@@ -29,11 +29,13 @@ class SocialNetwork:
         for user in self.__users:
             if user.get_name() == user_name:
                 user.log_out()
+                print(f"{user_name} disconnected")
     def log_in(self, name: str, passw: str) -> None:
         for user in self.__users:
             if user.get_name() == name:
                 if user.get_password() == passw:
                     user.log_in()
+                    print(f"{name} connected")
     def __str__(self):
         string = f"{self.__name} social network:\n"
         for user in self.__users:
@@ -65,8 +67,9 @@ class User:
         if self in other.__followers:
             other.__followers.remove(self)
             print(f"{self.__user_name} unfollowed {other.get_name()}")
-    def add_notification(self, message: str):
-        print(f"Notification to {self.__user_name}: {message}", end='')
+    def add_notification(self, message: str, flag: bool = True):
+        if flag:
+            print(f"Notification to {self.__user_name}: {message}", end='')
         self.__notif.append(message)
 
     def log_out(self):
@@ -86,8 +89,7 @@ class User:
         elif post_type == "Sale":
             post = SalePost(self, text, price, location)
         for user in self.__followers: # Notify the followers
-            user.add_notification(f"{self.__user_name} has a new post")
-            print()
+            user.add_notification(f"{self.__user_name} has a new post", False)
         self.__posts_count+=1
         print(post)
         return post
@@ -118,7 +120,7 @@ class TextPost(Post):
         self.__content = content
     def __str__(self):
         return (f"{self.get_owner().get_name()} published a post:\n"
-                    f"{self.__content}")
+                    f"{self.__content}\n")
 class ImagePost(Post):
     def __init__(self, owner: User, image_path):
         super().__init__(owner)
@@ -129,7 +131,7 @@ class ImagePost(Post):
         # plt.show()
         print(f"{self.get_owner().get_name()} posted a picture")
     def __str__(self):
-        return f"{self.get_owner().get_name()} posted a picture"
+        return f"{self.get_owner().get_name()} posted a picture\n"
 class SalePost(Post):
     def __init__(self, owner: User, item: str, price: int, location: str):
         super().__init__(owner)
@@ -152,7 +154,7 @@ class SalePost(Post):
     def __str__(self):
         status = "Sold!" if self.__sold else "For sale!"
         return (f"{self.get_owner().get_name()} posted a product for sale:\n"
-                f"{status} {self.__item_name}, price: {self.__price}, pickup from: {self.__location}")
+                f"{status} {self.__item_name}, price: {self.__price}, pickup from: {self.__location}\n")
 def check_if_user_logged_in(user: User):
     if (user.is_logged_in() == False):
         raise Exception(f"Error! {user.get_name()} is not logged in!")
