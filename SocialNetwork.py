@@ -112,8 +112,9 @@ class Post(ABC):
             print()
     def comment(self, user: User, text: str):
         check_if_user_logged_in(user)
-        self.__owner.add_notification(f"{user.get_name()} commented on your post")
-        print(f": {text}")
+        if user != self.__owner:
+            self.__owner.add_notification(f"{user.get_name()} commented on your post")
+            print(f": {text}")
 class TextPost(Post):
     def __init__(self, owner: User, content):
         super().__init__(owner)
