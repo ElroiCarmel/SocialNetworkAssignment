@@ -69,7 +69,7 @@ class User:
             print(f"{self.__user_name} unfollowed {other.get_name()}")
     def add_notification(self, message: str, flag: bool = True):
         if flag:
-            print(f"Notification to {self.__user_name}: {message}", end='')
+            print(f"notification to {self.__user_name}: {message}", end='')
         self.__notif.append(message)
 
     def log_out(self):
@@ -129,7 +129,7 @@ class ImagePost(Post):
         # image = mpimg.imread(self.__image_path)
         # plt.imshow(image)
         # plt.show()
-        print(f"{self.get_owner().get_name()} posted a picture")
+        print("Shows picture")
     def __str__(self):
         return f"{self.get_owner().get_name()} posted a picture\n"
 class SalePost(Post):
@@ -145,7 +145,7 @@ class SalePost(Post):
         if self.__sold:
             raise Exception("Item already sold!! Can't add discount")
         self.__price = self.__price * (1-(percent/100.0))
-        print(f"Discount on {super().get_owner().get_name()}'s product! the new price is: {self.__price}")
+        print(f"Discount on {super().get_owner().get_name()} product! the new price is: {self.__price}")
     def sold(self, passw: str):
         if super().get_owner().get_password() != passw:
             raise Exception("Password does not match")
