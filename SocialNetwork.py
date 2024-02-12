@@ -32,7 +32,7 @@ class SocialNetwork:
     def log_in(self, name: str, passw: str) -> None:
         for user in self.__users:
             if user.get_name() == name:
-                if user.get_passw() == passw:
+                if user.get_password() == passw:
                     user.log_in()
     def __str__(self):
         string = f"{self.__name} social network:\n"
