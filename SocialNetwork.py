@@ -127,6 +127,7 @@ class ImagePost(Post):
         image = mpimg.imread(self.__image_path)
         plt.imshow(image)
         plt.show()
+        print(f"{self.get_owner().get_name()} posted a picture")
     def __str__(self):
         return f"{self.get_owner().get_name()} posted a picture"
 class SalePost(Post):
