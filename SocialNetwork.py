@@ -124,9 +124,9 @@ class ImagePost(Post):
         super().__init__(owner)
         self.__image_path = image_path
     def display(self):
-        image = mpimg.imread(self.__image_path)
-        plt.imshow(image)
-        plt.show()
+        # image = mpimg.imread(self.__image_path)
+        # plt.imshow(image)
+        # plt.show()
         print(f"{self.get_owner().get_name()} posted a picture")
     def __str__(self):
         return f"{self.get_owner().get_name()} posted a picture"
