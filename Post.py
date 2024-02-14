@@ -24,6 +24,7 @@ class Post(ABC):
         user.check_if_user_logged_in()
         if user != self.__owner:
             comment_message = f"{user.get_name()} commented on your post"
+            self.__owner.update(comment_message)
             print(f"notification to {self.__owner.get_name()}: {comment_message}: {text}")
 
 
