@@ -37,10 +37,10 @@ class User(UserObserver, UserPublisher):
     def log_in(self):
         self.__logged_in = True
 
-    def publish_post(self, post_type: str, text, price: int = None, location: str = None):
+    def publish_post(self, *args):
         self.check_if_user_logged_in()
         post_builder = Post.PostFactory()
-        post = post_builder.create(self, post_type, text, price, location)
+        post = post_builder.create(self, args)
         self.__posts_count += 1
         self.notify(f"{self.__user_name} has a new post")
         print(post)

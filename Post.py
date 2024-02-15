@@ -89,14 +89,14 @@ class PostFactory:
             cls.__instance = super().__new__(cls)
         return cls.__instance
 
-    def create(self, owner: User, post_type: str, text, price: int = None, location: str = None):
+    def create(self, owner: User, args: tuple):
         post = None
-        if post_type == "Text":
-            post = TextPost(owner, text)
-        elif post_type == "Image":
-            post = ImagePost(owner, text)
-        elif post_type == "Sale":
-            post = SalePost(owner, text, price, location)
+        if args[0] == "Text":
+            post = TextPost(owner, args[1])
+        elif args[0] == "Image":
+            post = ImagePost(owner, args[1])
+        elif args[0] == "Sale":
+            post = SalePost(owner, args[1], args[2], args[3])
         else:
             raise Exception("Invalid post type. Must be Text/Image/Sale")
         return post
