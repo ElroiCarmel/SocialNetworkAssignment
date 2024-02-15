@@ -7,7 +7,9 @@ class SocialNetwork:
     def __new__(cls, name):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
-        return cls.__instance
+            return cls.__instance
+        else:
+            raise Exception("This class is a singleton! You cannot create more than one SocialNetwork!")
 
     def __init__(self, name):
         self.__name = name
