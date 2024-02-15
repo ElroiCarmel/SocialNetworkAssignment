@@ -3,17 +3,19 @@ from User import User
 
 class SocialNetwork:
     __instance = None
+    __created = False
 
     def __new__(cls, name):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
-            return cls.__instance
-        else:
-            raise Exception("This class is a singleton! You cannot create more than one SocialNetwork!")
+        return cls.__instance
 
     def __init__(self, name):
+        if self.__created:
+            return
         self.__name = name
         self.__users = []
+        self.__created = True
         print(f"The social network {self.__name} was created!")
 
     def sign_up(self, user_name, password):
