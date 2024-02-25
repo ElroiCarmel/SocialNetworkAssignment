@@ -14,7 +14,7 @@ class Observer(ABC):
 class Publisher(ABC):
 
     def __init__(self):
-        self._subscribers = []
+        self._subscribers = set()
 
     @abstractmethod
     def register(self, observer: Observer) -> None:
@@ -41,10 +41,11 @@ class UserObserver(Observer):
 class UserPublisher(Publisher):
 
     def register(self, observer: Observer) -> None:
-        self._subscribers.append(observer)
+        self._subscribers.add(observer)
 
-    def unregister(self, observer: Publisher) -> None:
-        self._subscribers.remove(observer)
+    def unregister(self, observer: Observer) -> None:
+        if observer in self._subscribers:
+            self._subscribers.remove(observer)
 
     def notify(self, event: str) -> None:
         for observer in self._subscribers:
